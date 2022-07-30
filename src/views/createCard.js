@@ -1,4 +1,5 @@
 import { mainDiv } from "../constants.js";
+import detailPage from "../page/detailPage.js";
 import {
   createElementByClassName,
   createElementById,
@@ -17,14 +18,16 @@ const createCards = (shows) => {
     const imageOfShow = createElementByClassName("img", "show-img");
     const showInformation = createElementByClassName("div", "show-info");
     const showName = createElementByClassName("p", "show-name");
-    const showDetails = createElementByClassName("a", "show-link");
+    const showDetails = createElementByClassName("button", "show-link");
     const showType = createElementByClassName("p", "show-type");
 
-    imageOfShow.src = `${show.image.original}`;
-    showName.textContent = `${show.name}`;
-    showDetails.textContent = `Details`;
-    showDetails.href = `${show.url}`;
-    showType.textContent = `${show.genres}`;
+    if (show.image) {
+      imageOfShow.src = `${show.image.medium}`;
+    }
+    showName.textContent = show.name.slice(0, 20);
+    showDetails.innerText = `Details`;
+    showDetails.id = show.externals.thetvdb;
+    showType.textContent = show.genres[0];
 
     main.appendChild(cardContainer);
     cardContainer.appendChild(showCard);
@@ -33,6 +36,15 @@ const createCards = (shows) => {
     showInformation.appendChild(showName);
     showInformation.appendChild(showType);
     showInformation.appendChild(showDetails);
+  });
+
+  const detailsBtn = Array.from(document.getElementsByClassName("show-link"));
+  // console.log(detailsBtn);
+  detailsBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      detailPage(e);
+      // console.log("hello");
+    });
   });
 };
 export default createCards;

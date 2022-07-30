@@ -1,10 +1,11 @@
 import createNavBar from "./views/createNavBar.js";
 import createHomePage from "./page/homepage.js";
 import searchShow from "./page/searchShow.js";
-import { createElementById } from "./utilities/createElementFunctions.js";
+
 const mainApp = () => {
   const navigation = createNavBar();
   const home = createHomePage();
+
   // const search = searchShow();
   let searchTimeoutToken = 0;
   const searchElement = document.getElementById("inputValue");
