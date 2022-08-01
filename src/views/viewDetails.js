@@ -3,8 +3,6 @@ import {
   createElementById,
 } from "../utilities/createElementFunctions.js";
 import { mainDiv } from "../constants.js";
-import createCards from "./createCard.js";
-
 const viewDetails = (result) => {
   // creating Elements
   const main = document.getElementById(mainDiv);

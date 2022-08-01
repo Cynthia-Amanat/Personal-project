@@ -1,5 +1,5 @@
 import { mainDiv } from "../constants.js";
-import { detailPage, detailPageForSearch } from "../page/detailPage.js";
+import { detailPage } from "../page/detailPage.js";
 import {
   createElementByClassName,
   createElementById,

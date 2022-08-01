@@ -35,7 +35,6 @@ const viewDetailForSearch = (result) => {
   }
 
   // text and attribute
-  // viewDetailContainer.classList.add("hide");
   showNameHeading.textContent = result.name;
   if (result.image) {
     image.src = result.image.medium;
