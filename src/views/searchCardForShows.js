@@ -1,6 +1,5 @@
-import { mainDiv } from "../constants.js";
 import { createElementByClassName } from "../utilities/createElementFunctions.js";
-import detailPage from "../page/detailPage.js";
+import { detailPage, detailPageForSearch } from "../page/detailPage.js";
 
 const searchCardForShow = (results) => {
   const searchShowContainer = document.getElementById("search-container");
@@ -18,7 +17,6 @@ const searchCardForShow = (results) => {
     searchShowName.textContent = result.show.name;
     searchShowDetails.textContent = `Details`;
     searchShowDetails.id = result.show.externals.thetvdb;
-    // searchShowType.textContent = result.show.genres;
 
     //   appending elements
 
@@ -31,11 +29,10 @@ const searchCardForShow = (results) => {
   });
 
   const detailsBtn = Array.from(document.getElementsByClassName("show-link"));
-  // console.log(detailsBtn);
+
   detailsBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      detailPage(e);
-      // console.log("hello");
+      detailPageForSearch(e);
     });
   });
 };

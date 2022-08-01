@@ -2,19 +2,28 @@ import fetchData from "../utilities/fetchData.js";
 import viewDetailForSearch from "../views/viewDetailForSearch.js";
 import viewDetails from "../views/viewDetails.js";
 
-const detailPage = async (e) => {
-  try {
-    const result = await fetchData(
-      `https://api.tvmaze.com/lookup/shows?thetvdb=${e.target.id}?`
-    );
+export const detailPage = async (e) => {
+  const result = await fetchData(
+    `https://api.tvmaze.com/lookup/shows?tvrage=${e.target.id}?`
+  );
+
+  if (result) {
     viewDetails(result);
-    viewDetailForSearch(result);
-  } catch (error) {
-    const searchShowContainer = document.getElementById("search-container");
-    searchShowContainer.innerHTML = " ";
-    const heading = document.getElementById("main-heading");
-    heading.textContent = " Sorry not found";
+  } else {
+    const cardContainer = document.getElementById("detail-Container");
+    cardContainer.innerHTML = `" Sorry we didn't found any detail!`;
   }
 };
 
-export default detailPage;
+export const detailPageForSearch = async (e) => {
+  const result = await fetchData(
+    `https://api.tvmaze.com/lookup/shows?thetvdb=${e.target.id}?`
+  );
+  console.log(result);
+  if (e.target.id == null) {
+    const cardContainer = document.getElementById("detail-Container");
+    cardContainer.innerHTML = `" Sorry we didn't found any detail!`;
+  } else {
+    viewDetailForSearch(result);
+  }
+};

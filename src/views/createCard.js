@@ -1,5 +1,5 @@
 import { mainDiv } from "../constants.js";
-import detailPage from "../page/detailPage.js";
+import { detailPage, detailPageForSearch } from "../page/detailPage.js";
 import {
   createElementByClassName,
   createElementById,
@@ -26,7 +26,7 @@ const createCards = (shows) => {
     }
     showName.textContent = show.name.slice(0, 20);
     showDetails.innerText = `Details`;
-    showDetails.id = show.externals.thetvdb;
+    showDetails.id = show.externals.tvrage;
     showType.textContent = show.genres[0];
 
     main.appendChild(cardContainer);
@@ -39,11 +39,9 @@ const createCards = (shows) => {
   });
 
   const detailsBtn = Array.from(document.getElementsByClassName("show-link"));
-  // console.log(detailsBtn);
   detailsBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       detailPage(e);
-      // console.log("hello");
     });
   });
 };

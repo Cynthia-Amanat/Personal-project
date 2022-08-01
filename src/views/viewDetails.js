@@ -3,30 +3,30 @@ import {
   createElementById,
 } from "../utilities/createElementFunctions.js";
 import { mainDiv } from "../constants.js";
+import createCards from "./createCard.js";
 
 const viewDetails = (result) => {
   // creating Elements
   const main = document.getElementById(mainDiv);
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = " ";
+  main.classList.add("hide");
 
-  const heading = document.getElementById("main-heading");
-  heading.textContent = "Show Information";
   const viewDetailContainer = createElementById("div", "detail-Container");
-  const showNameHeading = createElementById("h1", "Heading-Name");
-
+  const showNameHeading = createElementById("h2", "Heading-Name");
+  const showInformation = createElementById("h1", "show-information");
+  const detailBox = createElementById("div", "box");
   const detailsOfShow = createElementById("div", "detail-of-show");
   const showSummaryContainer = createElementById("div", "summary-container");
+  const closeButton = createElementByClassName("button", "close-button");
   const image = createElementByClassName("img", "detail-img");
   const summary = createElementByClassName("p", "summary");
   const showInfo = [
-    `network : ${result.network.name} | ${result.network.country.name}`,
-    `status :${result.status}`,
-    `schedule :${result.schedule.days} | ${result.schedule.time}`,
+    `Network : ${result.network.name} | ${result.network.country.name}`,
+    `Status :${result.status}`,
+    `Schedule :${result.schedule.days} | ${result.schedule.time}`,
     `Type : ${result.type}`,
     `Genres : ${result.genres}`,
-    `Episode : Current Episode ${result._links.self.href} | Pervious Episode ${result._links.previousepisode.href}`,
-    `officialSite : ${result.officialSite} `,
+    `Episode : Current Episode ${result._links.self.href}| Pervious Episode ${result._links.previousepisode.href}" `,
+    `OfficialSite : ${result.officialSite} `,
   ];
 
   for (let i = 0; i < showInfo.length; i++) {
@@ -37,20 +37,29 @@ const viewDetails = (result) => {
   }
 
   // text and attribute
-  // viewDetailContainer.classList.add("hide");
   showNameHeading.textContent = result.name;
   if (result.image) {
     image.src = result.image.medium;
   }
   summary.textContent = result.summary;
-
+  closeButton.innerText = "X";
+  showInformation.textContent = " Show Information";
   // appending Elements
-  main.appendChild(viewDetailContainer);
+
+  document.body.appendChild(viewDetailContainer);
+  viewDetailContainer.appendChild(closeButton);
+  viewDetailContainer.appendChild(showInformation);
   viewDetailContainer.appendChild(showNameHeading);
-  viewDetailContainer.appendChild(showSummaryContainer);
+  viewDetailContainer.appendChild(detailBox);
+  detailBox.appendChild(showSummaryContainer);
+  detailBox.appendChild(detailsOfShow);
   showSummaryContainer.appendChild(image);
   showSummaryContainer.appendChild(summary);
-  viewDetailContainer.appendChild(detailsOfShow);
+
+  closeButton.addEventListener("click", () => {
+    viewDetailContainer.remove();
+    main.classList.remove("hide");
+  });
 };
 
 export default viewDetails;

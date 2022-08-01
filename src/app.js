@@ -22,7 +22,7 @@ const mainApp = () => {
     searchTimeoutToken = setTimeout(() => {
       searchShowContainer.innerHTML = " ";
       searchShow(searchElement.value);
-    }, 250);
+    }, 50);
   });
 };
 

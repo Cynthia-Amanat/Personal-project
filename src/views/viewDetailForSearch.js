@@ -2,28 +2,29 @@ import {
   createElementById,
   createElementByClassName,
 } from "../utilities/createElementFunctions.js";
+import { mainDiv } from "../constants.js";
 
 const viewDetailForSearch = (result) => {
-  const searchShowContainer = document.getElementById("search-container");
-  searchShowContainer.innerHTML = " ";
+  const main = document.getElementById(mainDiv);
+  main.classList.add("hide");
 
-  const heading = document.getElementById("main-heading");
-  heading.textContent = "Show Information";
   const viewDetailContainer = createElementById("div", "detail-Container");
-  const showNameHeading = createElementById("h1", "Heading-Name");
-
+  const closeButton = createElementById("button", "close-button");
+  const showInformation = createElementById("h1", "show-information");
+  const showNameHeading = createElementById("h2", "Heading-Name");
+  const detailBox = createElementById("div", "box");
   const detailsOfShow = createElementById("div", "detail-of-show");
   const showSummaryContainer = createElementById("div", "summary-container");
   const image = createElementByClassName("img", "detail-img");
   const summary = createElementByClassName("p", "summary");
   const showInfo = [
-    `network : ${result.show.network.name} | ${result.show.network.country.name}`,
-    `status :${result.show.status}`,
-    `schedule :${result.show.schedule.days} | ${result.show.schedule.time}`,
-    `Type : ${result.show.type}`,
-    `Genres : ${result.show.genres}`,
-    `Episode : Current Episode ${result.show._links.self.href} | Pervious Episode ${result.show._links.previousepisode.href}`,
-    `officialSite : ${result.show.officialSite} `,
+    `network : ${result.network.name} | ${result.network.country.name}`,
+    `status :${result.status}`,
+    `schedule :${result.schedule.days} | ${result.schedule.time}`,
+    `Type : ${result.type}`,
+    `Genres : ${result.genres}`,
+    `Episode : Current Episode ${result._links.self.href} | Pervious Episode ${result._links.previousepisode.href}`,
+    `officialSite : ${result.officialSite} `,
   ];
 
   for (let i = 0; i < showInfo.length; i++) {
@@ -34,19 +35,29 @@ const viewDetailForSearch = (result) => {
   }
 
   // text and attribute
-
-  showNameHeading.textContent = result.show.name;
+  // viewDetailContainer.classList.add("hide");
+  showNameHeading.textContent = result.name;
   if (result.image) {
-    image.src = result.show.image.medium;
+    image.src = result.image.medium;
   }
-  summary.textContent = result.show.summary;
+  summary.textContent = result.summary;
+  closeButton.innerText = "X";
 
   // appending Elements
-  main.appendChild(viewDetailContainer);
+  document.body.appendChild(viewDetailContainer);
+  viewDetailContainer.appendChild(closeButton);
+  viewDetailContainer.appendChild(showInformation);
   viewDetailContainer.appendChild(showNameHeading);
-  viewDetailContainer.appendChild(showSummaryContainer);
+  viewDetailContainer.appendChild(detailBox);
+  detailBox.appendChild(showSummaryContainer);
+  detailBox.appendChild(detailsOfShow);
   showSummaryContainer.appendChild(image);
   showSummaryContainer.appendChild(summary);
-  viewDetailContainer.appendChild(detailsOfShow);
+
+  //   addEventListener
+  closeButton.addEventListener("click", () => {
+    viewDetailContainer.remove();
+    main.classList.remove("hide");
+  });
 };
 export default viewDetailForSearch;
