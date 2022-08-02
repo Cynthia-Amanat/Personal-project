@@ -39,7 +39,7 @@ const viewDetailForSearch = (result) => {
   if (result.image) {
     image.src = result.image.medium;
   }
-  summary.textContent = result.summary;
+  summary.innerHTML = result.summary;
   closeButton.innerText = "X";
 
   // appending Elements
